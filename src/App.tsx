@@ -7,7 +7,7 @@ import { Sidebar, SidebarTab } from './components/Sidebar'
 import { DashboardView } from './components/DashboardView'
 import { InvoiceWorkspace } from './components/InvoiceWorkspace'
 import { AuditTrailPage } from './components/AuditTrailPage'
-import { taxMismatchReplyEmails, glApprovalReplyEmail, metroGLReplyEmails, prtGLReplyEmails, missingGRReplyEmail, royaltyMismatchReplyEmail, royaltyDeviationSentEmail, mockInvoices } from './data/mockData'
+import { taxMismatchReplyEmails, glApprovalReplyEmail, metroGLReplyEmails, prtGLReplyEmails, missingGRReplyEmail, royaltyMismatchReplyEmail, royaltyDeviationSentEmail, taxMismatchSentEmail, missingGRSentEmail, glApprovalSentEmail, prtGLSentEmail, metroGLSentEmail, mockInvoices } from './data/mockData'
 import { LandingScreen } from './components/LandingScreen'
 import { OutlookInbox } from './components/OutlookInbox'
 import { TicketsView } from './components/TicketsView'
@@ -430,6 +430,7 @@ export default function App() {
 
   const handleTaxMismatchSent = () => {
     if (taxMismatchEmailSent) return
+    setSentEmails(prev => prev.some(e => e.id === taxMismatchSentEmail.id) ? prev : [taxMismatchSentEmail, ...prev])
     setReplyEmails(prev => {
       if (prev.some(e => e.id === taxMismatchReplyEmails[0].id)) return prev
       return [...taxMismatchReplyEmails, ...prev]
@@ -457,6 +458,7 @@ export default function App() {
   const handleMissingGRSent = () => {
     if (missingGRSent) return
     setMissingGRSent(true)
+    setSentEmails(prev => prev.some(e => e.id === missingGRSentEmail.id) ? prev : [missingGRSentEmail, ...prev])
     setToastMessage('SES confirmation request sent to Sophie Brandt · s.brandt@fremantle.com')
     setToastAction(null)
     setToastVisible(true)
@@ -508,6 +510,7 @@ export default function App() {
     const isPRT = selectedInvoice?.glMissingVariant === 'prt-coding'
 
     if (isPRT) {
+      setSentEmails(prev => prev.some(e => e.id === prtGLSentEmail.id) ? prev : [prtGLSentEmail, ...prev])
       setToastMessage('WBS coding approval email sent to Daniel Roth & Thomas Lindqvist')
       setToastAction(null)
       setToastVisible(true)
@@ -548,6 +551,7 @@ export default function App() {
     // Standard GL flow
     const currentInvoiceId = selectedInvoice?.id ?? ''
     const currentInvoiceNum = selectedInvoice?.invoiceNumber ?? selectedInvoice?.id ?? 'invoice'
+    setSentEmails(prev => prev.some(e => e.id === glApprovalSentEmail.id) ? prev : [glApprovalSentEmail, ...prev])
     setToastMessage(`GL code approval email sent for ${currentInvoiceNum}`)
     setToastAction(null)
     setToastVisible(true)
@@ -572,6 +576,7 @@ export default function App() {
   const handleMetroGLApprovalSend = () => {
     if (metroGLApprovalSent) return
     setMetroGLApprovalSent(true)
+    setSentEmails(prev => prev.some(e => e.id === metroGLSentEmail.id) ? prev : [metroGLSentEmail, ...prev])
     // First toast — approval request sent
     setToastMessage('GL approval request sent to m.weber@bertelsmann.de · CC: a.krueger@bertelsmann.de')
     setToastAction(null)

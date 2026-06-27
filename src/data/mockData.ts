@@ -923,6 +923,195 @@ a.krueger@bertelsmann.de`,
   },
 ]
 
+// ── Sent emails (AP outbound) ─────────────────────────────────────────────────
+
+// Tax mismatch — AP rejects Lehmanns invoice, asks for resubmission with correct VAT
+export const taxMismatchSentEmail: SentEmail = {
+  id: 'sent-tax-mismatch',
+  toName: 'Lehmanns Media GmbH',
+  toEmail: 'rechnung@lehmanns.de',
+  subject: 'Invoice Rejected — VAT Rate Error — Please Resubmit — LM-2026-04781',
+  time: 'just now',
+  relatedInvoiceId: 'inv-5',
+  body: `CC: Anja Krüger <a.krueger@bertelsmann.de>
+
+Dear Lehmanns Media,
+
+We are returning invoice LM-2026-04781 (invoiced total €59,500.00) as it contains a VAT rate error that must be corrected before payment can proceed.
+
+Invoice Details:
+  Invoice Number:  LM-2026-04781
+  Supplier:        Lehmanns Media GmbH
+  PO Reference:    4500301992
+  Net Amount:      €50,000.00
+
+Error Identified:
+  VAT Code Applied:   DE-VAT-STD (19%)
+  VAT Amount Billed:  €9,500.00
+  Invoice Total:      €59,500.00
+
+Correct Treatment:
+  VAT Code Required:  DE-VAT-RED (7% reduced rate)
+  Reason:             Printed books are subject to the reduced rate under §12 Abs. 2 Nr. 14 UStG
+  Correct VAT:        €3,500.00
+  Correct Total:      €53,500.00
+
+Action Required:
+Please resubmit a corrected XRechnung-compliant invoice (reference LM-2026-04781-R1) applying the 7% reduced rate. The original invoice has been rejected in SAP and cannot be reprocessed. Please quote PO reference 4500301992 on the corrected invoice.
+
+Kind regards,
+Lena Fischer
+Accounts Payable — Bertelsmann Finance Operations
+accounts.payable@bertelsmann.de`,
+}
+
+// Missing GR — AP requests SES confirmation from Fremantle PO owner
+export const missingGRSentEmail: SentEmail = {
+  id: 'sent-missing-gr',
+  toName: 'Sophie Brandt',
+  toEmail: 's.brandt@fremantle.com',
+  subject: 'Service Entry Sheet Confirmation Required — SPP-2026-0461 — Sunset Post Production Ltd',
+  time: 'just now',
+  relatedInvoiceId: 'inv-2',
+  body: `Dear Sophie,
+
+We have received invoice SPP-2026-0461 from Sunset Post Production Ltd for picture and sound post-production on "Coastlines" Season 2, Episode 6, referencing PO 4500288120.
+
+Invoice Details:
+  Invoice Number:  SPP-2026-0461
+  Supplier:        Sunset Post Production Ltd
+  PO Reference:    4500288120
+  Milestone:       Episode 6 — Picture Lock
+  Invoice Amount:  €312,000.00 EUR
+  Payment Terms:   Net 45
+
+Issue:
+Our system cannot locate a posted Service Entry Sheet (SES) for this milestone against PO 4500288120. A confirmed SES is required to complete the 3-way match (PO · SES · Invoice) before payment can be released.
+
+Action Required:
+Please confirm whether the Episode 6 Picture Lock milestone has been signed off and book the corresponding Service Entry Sheet in SAP S/4HANA (company code BERT, plant DE01) at your earliest convenience.
+
+Once the SES is posted, please reply to confirm and we will release the invoice for payment.
+
+Kind regards,
+Lena Fischer
+Accounts Payable — Bertelsmann Finance Operations
+accounts.payable@bertelsmann.de`,
+}
+
+// Standard GL approval — AP requests GL code confirmation for JVM invoice
+export const glApprovalSentEmail: SentEmail = {
+  id: 'sent-gl-approval-jvm',
+  toName: 'BMS Finance Operations',
+  toEmail: 'finance.ops@bertelsmann.de',
+  subject: 'GL Code Approval Request — JVM-2026-0623 — Jung von Matt AG',
+  time: 'just now',
+  relatedInvoiceId: 'inv-6',
+  body: `Dear Finance Team,
+
+We are requesting GL code approval for the following Non-PO invoice from Jung von Matt AG. Our AI agent identified three competing GL accounts and could not auto-assign with sufficient confidence.
+
+Invoice Details:
+  Invoice Number:  JVM-2026-0623
+  Supplier:        Jung von Matt AG (JVM-5591)
+  Invoice Date:    June 16, 2026
+  Amount:          €18,400.00 EUR
+  Description:     Campaign creative and production services — Territory marketing team, June 2026
+  Services:        Concept development, key visual design, asset production
+
+GL Ambiguity (AI confidence scores):
+  6610-002 — Creative Services          38%
+  6620-001 — Marketing & Advertising    34%
+  6630-005 — Agency Fees                28%
+
+No single account exceeded the 60% auto-assign threshold. Please confirm the appropriate GL account so we can proceed with payment.
+
+Kind regards,
+Lena Fischer
+Accounts Payable — Bertelsmann Finance Operations
+accounts.payable@bertelsmann.de`,
+}
+
+// PRT WBS coding — AP requests dual approval from Requestor and Head of Department
+export const prtGLSentEmail: SentEmail = {
+  id: 'sent-prt-gl-approval',
+  toName: 'Daniel Roth',
+  toEmail: 'd.roth@arvato-systems.de',
+  subject: 'WBS Coding String — Approval Required — TSI-2026-IT-7714 — T-Systems',
+  time: 'just now',
+  relatedInvoiceId: 'inv-11',
+  body: `CC: Thomas Lindqvist <t.lindqvist@arvato-systems.de>
+
+Dear Daniel (and Thomas),
+
+We are requesting dual approval of the SAP WBS coding string generated for the following Non-PO invoice from T-Systems International GmbH.
+
+Invoice Details:
+  Invoice Number:  TSI-2026-IT-7714
+  Supplier:        T-Systems International GmbH (TSI-3674)
+  Invoice Date:    September 12, 2026
+  Amount:          €50,000.00 EUR
+  MSA Reference:   MSA #2
+
+Proposed WBS Coding String:
+  D-2029.IT.805089.P42529.2029240740.CON82580.EUR12090.Item#
+
+  WBS Element:     D-2029.IT.805089
+  Cost Centre:     CC-ASYS-IT-0042
+  PAR Number:      P42529
+  Internal Order:  2029240740
+  Contract No.:    CON82580
+
+Per PRT coding policy, this string requires:
+  1. Requestor approval (Daniel Roth)
+  2. Head of Department approval (Thomas Lindqvist)
+
+Please reply confirming your approval. Both approvals are required before the invoice can be released for payment.
+
+Kind regards,
+Lena Fischer
+Accounts Payable — Bertelsmann Finance Operations
+accounts.payable@bertelsmann.de`,
+}
+
+// Metro GL (internal) approval — AP requests GL code confirmation from cost centre owner
+export const metroGLSentEmail: SentEmail = {
+  id: 'sent-metro-gl-approval',
+  toName: 'Markus Weber',
+  toEmail: 'm.weber@bertelsmann.de',
+  subject: 'GL Code Approval Required — DLT-2026-7741 — Deloitte Consulting GmbH',
+  time: 'just now',
+  relatedInvoiceId: 'inv-4',
+  body: `CC: Anja Krüger <a.krueger@bertelsmann.de>
+
+Dear Markus,
+
+We have received a Non-PO invoice from Deloitte Consulting GmbH for advisory services provided to Arvato Connect in May 2026. The invoice requires GL code approval before it can proceed to payment.
+
+Invoice Details:
+  Invoice Number:  DLT-2026-7741
+  Supplier:        Deloitte Consulting GmbH (DLT-4451)
+  Invoice Date:    June 10, 2026
+  Due Date:        June 25, 2026
+  Net Amount:      €36,000.00
+  VAT (19%):       €6,840.00
+  Total:           €42,840.00
+  Service Period:  May 1–31, 2026
+  Description:     Operating-model design workshops, process diagnostics, and implementation roadmap (Arvato Connect engagement)
+
+GL Account Options (AI confidence scores):
+  6720-001 — Management Consulting      ambiguous
+  6300-007 — Professional Services      ambiguous
+  6810-002 — Project / Transformation   ambiguous
+
+As cost centre owner for Arvato Connect, could you please confirm the correct GL account for this engagement? Anja Krüger (AP Lead) is copied for authorisation.
+
+Kind regards,
+Lena Fischer
+Accounts Payable — Bertelsmann Finance Operations
+accounts.payable@bertelsmann.de`,
+}
+
 // Royalty mismatch reply — Claire Newton confirms contract rate and corrected amount
 export const royaltyMismatchReplyEmail: ReplyEmail = {
   id: 'reply-royalty-mismatch',
