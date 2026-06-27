@@ -31,7 +31,7 @@ const ROYALTY_STEPS = [
   { id: 'extract', name: 'Field Extraction', description: 'Extracts royalty lines, rates, and contract references using SAP DOX AI-powered OCR.', agents: ['SAP DOX Digitization Agent', 'Invoice Extractor (Id)', 'Formatter Agent'] },
   { id: 'completeness', name: 'Data Completeness Check', description: 'Validates mandatory fields and that a contract reference is present.', agents: ['Field Validation Agent', 'Invoice Validation (Iv)'] },
   { id: 'masterdata', name: 'Master Data Check', description: 'Cross-references the SAP Vendor master and the abstracted royalty contract terms.', agents: ['Field Validation Agent', 'S/4 Data Hub'] },
-  { id: 'royaltycheck', name: 'Royalty Validation', description: 'GenAI compares each royalty invoice line against the abstracted contract terms (rate, basis, clauses) and flags genuine deviations for review.', agents: ['Matching & GL Advisor (Ma)', 'Predictive IC & Royalty Agent', 'Tax & DRC Agent (Tx)'] },
+  { id: 'royaltycheck', name: 'Royalty Validation', description: 'GenAI compares each royalty invoice line against the abstracted contract terms (rate, basis, clauses) and flags genuine deviations for review.', agents: ['Matching & GL Advisor (Ma)', 'Predictive IC & Royalty Agent'] },
 ]
 
 const FREMANTLE_STEPS = [
