@@ -20,6 +20,8 @@ interface Props {
   onMetroApprove?: () => void
   metroInvoiceApprovedIds?: Set<string>
   glEmailsViewed?: boolean
+  onRoyaltySent?: () => void
+  royaltyMismatchAutoResolved?: boolean
 }
 
 const STEP_DURATION_MS = 4000
@@ -3183,7 +3185,7 @@ function DocumentPanel({ children, scrollRef, onScroll, hasContent }: {
 
 // ─── Main ProcessingView ───────────────────────────────────────────────────────
 
-export function ProcessingView({ invoice, onBack, onTaxMismatchSent, taxMismatchAutoResolved = false, onMissingGRSent, missingGRAutoResolved = false, onGLApprovalSent, glApprovalReceived = false, onProcessingComplete, metroGLApprovalSent = false, onMetroGLApprovalSend, metroApproved = false, onMetroApprove, metroInvoiceApprovedIds, glEmailsViewed = false }: Props) {
+export function ProcessingView({ invoice, onBack, onTaxMismatchSent, taxMismatchAutoResolved = false, onMissingGRSent, missingGRAutoResolved = false, onGLApprovalSent, glApprovalReceived = false, onProcessingComplete, metroGLApprovalSent = false, onMetroGLApprovalSend, metroApproved = false, onMetroApprove, metroInvoiceApprovedIds, glEmailsViewed = false, onRoyaltySent, royaltyMismatchAutoResolved = false }: Props) {
   // Compute before any state — GL approval already granted means we skip animation
   const cachedGL = invoice.failType === 'gl-missing' ? (glCodeCache.get(invoice.id) ?? null) : null
   const skipGLAnimation = invoice.failType === 'gl-missing' && !!(cachedGL?.glApprovalEmailSent || cachedGL?.glApprovalEmailReceived)
@@ -3225,7 +3227,7 @@ export function ProcessingView({ invoice, onBack, onTaxMismatchSent, taxMismatch
   const [metroInvoiceApproved, setMetroInvoiceApproved] = useState(metroInvoiceApprovedIds?.has(invoice.id) ?? false)
   const [agentActivityCollapsed, setAgentActivityCollapsed] = useState(skipGLAnimation)
   const [icResolved, setIcResolved] = useState(false)
-  const [royaltyResolved, setRoyaltyResolved] = useState(false)
+  const [royaltySent, setRoyaltySent] = useState(false)
   const [showSAPPosting, setShowSAPPosting] = useState(false)
   const [showSAPPayment, setShowSAPPayment] = useState(false)
 
@@ -3431,7 +3433,7 @@ export function ProcessingView({ invoice, onBack, onTaxMismatchSent, taxMismatch
       )}
       {isFailed && invoice.failType === 'duplicate' && <DuplicateCard invoice={invoice} />}
       {isFailed && invoice.failType === 'ic-mismatch' && <ICMismatchCard invoice={invoice} resolved={icResolved} />}
-      {isFailed && invoice.failType === 'royalty-mismatch' && <RoyaltyMismatchCard invoice={invoice} resolved={royaltyResolved} />}
+      {isFailed && invoice.failType === 'royalty-mismatch' && <RoyaltyMismatchCard invoice={invoice} resolved={royaltyMismatchAutoResolved} />}
       {isFailed && invoice.failType === 'manual-approval' && !manuallyApproved && (
         <ManualApprovalCard invoice={invoice} />
       )}
@@ -3463,10 +3465,23 @@ export function ProcessingView({ invoice, onBack, onTaxMismatchSent, taxMismatch
         <StickyResolvePanel title="Intercompany Mismatch — ICE Reconciliation Required" subtitle="Trigger ICE reconciliation across the affiliated entities to clear the variance" buttonLabel="Trigger ICE Reconciliation" onResolve={() => setIcResolved(true)} />
       )}
       {isFailed && invoice.failType === 'ic-mismatch' && icResolved && <AutoApprovePanel invoice={invoice} onViewPosting={() => setShowSAPPosting(true)} />}
-      {isFailed && invoice.failType === 'royalty-mismatch' && !royaltyResolved && (
-        <StickyResolvePanel title="Royalty vs Contract Deviation — Review Required" subtitle="Route to Royalties Management to confirm the contract rate and resolve" buttonLabel="Send to Royalties Management" onResolve={() => setRoyaltyResolved(true)} />
+      {isFailed && invoice.failType === 'royalty-mismatch' && !royaltySent && !royaltyMismatchAutoResolved && (
+        <StickyResolvePanel title="Royalty vs Contract Deviation — Review Required" subtitle="Route to Royalties Management to confirm the contract rate and resolve" buttonLabel="Send to Royalties Management" onResolve={() => { setRoyaltySent(true); onRoyaltySent?.() }} />
       )}
-      {isFailed && invoice.failType === 'royalty-mismatch' && royaltyResolved && <AutoApprovePanel invoice={invoice} onViewPosting={() => setShowSAPPosting(true)} />}
+      {isFailed && invoice.failType === 'royalty-mismatch' && royaltySent && !royaltyMismatchAutoResolved && (
+        <div style={{ flexShrink: 0, borderTop: '2px solid #1a3a6b', background: '#f0f4fa', padding: '14px 32px', display: 'flex', alignItems: 'center', gap: '14px', boxShadow: '0 -4px 16px rgba(0,0,0,0.08)' }}>
+          <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: '#1a3a6b', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" fill="#fff" style={{ display: 'block' }}><path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-640v400h640v-400L480-440Zm0-80 320-200H160l320 200ZM160-640v-80 480-400Z"/></svg>
+          </div>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontFamily: 'Cabin, sans-serif', fontSize: '15px', fontWeight: 700, color: '#1a3a6b' }}>Notification Sent to Royalties Management</div>
+            <div style={{ fontSize: '13px', color: '#3a4a6b', fontFamily: 'Lato, sans-serif', marginTop: '2px' }}>
+              Deviation routed to <strong>Claire Newton</strong> (c.newton@penguinrandomhouse.com) — awaiting confirmation of the applicable contract rate
+            </div>
+          </div>
+        </div>
+      )}
+      {isFailed && invoice.failType === 'royalty-mismatch' && royaltyMismatchAutoResolved && <AutoApprovePanel invoice={invoice} onViewPosting={() => setShowSAPPosting(true)} />}
       {isFailed && invoice.failType === 'tax-mismatch' && !taxMismatchAutoResolved && (
         <StickyTaxMismatchPanel notificationSent={taxNotificationSent} onOpenComms={() => setShowCommsModal(true)} supplierName={invoice.supplier} />
       )}

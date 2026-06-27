@@ -7,7 +7,7 @@ import { Sidebar, SidebarTab } from './components/Sidebar'
 import { DashboardView } from './components/DashboardView'
 import { InvoiceWorkspace } from './components/InvoiceWorkspace'
 import { AuditTrailPage } from './components/AuditTrailPage'
-import { taxMismatchReplyEmails, glApprovalReplyEmail, metroGLReplyEmails, prtGLReplyEmails, missingGRReplyEmail, mockInvoices } from './data/mockData'
+import { taxMismatchReplyEmails, glApprovalReplyEmail, metroGLReplyEmails, prtGLReplyEmails, missingGRReplyEmail, royaltyMismatchReplyEmail, mockInvoices } from './data/mockData'
 import { LandingScreen } from './components/LandingScreen'
 import { OutlookInbox } from './components/OutlookInbox'
 import { TicketsView } from './components/TicketsView'
@@ -411,6 +411,7 @@ export default function App() {
   const [prtOutlookReturned, setPrtOutlookReturned] = useState(false)
   const [metroGLApprovalSent, setMetroGLApprovalSent] = useState(false)
   const [metroApprovedIds, setMetroApprovedIds] = useState<Set<string>>(new Set())
+  const [royaltySent, setRoyaltySent] = useState(false)
   const [toastVisible, setToastVisible] = useState(false)
   const [toastMessage, setToastMessage] = useState('')
   const [toastAction, setToastAction] = useState<{ label: string; onClick: () => void } | null>(null)
@@ -475,6 +476,30 @@ export default function App() {
         setTimeout(() => { setToastVisible(false); setToastAction(null) }, 6000)
       }, 80)
     }, 2500)
+  }
+
+  const handleRoyaltySent = () => {
+    if (royaltySent) return
+    setRoyaltySent(true)
+    setToastMessage('Royalty deviation routed to Claire Newton · c.newton@penguinrandomhouse.com')
+    setToastAction(null)
+    setToastVisible(true)
+    const hideFirst = setTimeout(() => setToastVisible(false), 4000)
+    // Simulate Claire Newton's reply arriving ~3s later
+    setTimeout(() => {
+      clearTimeout(hideFirst)
+      setToastVisible(false)
+      setTimeout(() => {
+        setReplyEmails(prev => {
+          if (prev.some(e => e.id === royaltyMismatchReplyEmail.id)) return prev
+          return [royaltyMismatchReplyEmail, ...prev]
+        })
+        setToastMessage('Claire Newton confirmed contract rate 12.5% — deviation resolved')
+        setToastAction({ label: 'View in Outlook', onClick: () => setAppView('outlook') })
+        setToastVisible(true)
+        setTimeout(() => { setToastVisible(false); setToastAction(null) }, 6000)
+      }, 80)
+    }, 3000)
   }
 
   const handleGLApprovalSent = () => {
@@ -615,6 +640,7 @@ export default function App() {
   }
 
   const metroApproved = metroGLApprovalSent && replyEmails.some(e => e.id === 'reply-metro-gl-1')
+  const royaltyMismatchAutoResolved = royaltySent && replyEmails.some(e => e.id === 'reply-royalty-mismatch' && !e.isUnread)
 
   const glEmailsViewed = selectedInvoice?.glMissingVariant === 'prt-coding'
     ? prtOutlookReturned ||
@@ -651,6 +677,8 @@ export default function App() {
               onMetroApprove={() => setMetroApprovedIds(prev => new Set([...prev, 'inv-4']))}
               metroInvoiceApprovedIds={metroApprovedIds}
               glEmailsViewed={glEmailsViewed}
+              onRoyaltySent={handleRoyaltySent}
+              royaltyMismatchAutoResolved={royaltyMismatchAutoResolved && selectedInvoice?.failType === 'royalty-mismatch'}
             />
           ) : activeTab === 'inbox' ? (
             <TicketsView

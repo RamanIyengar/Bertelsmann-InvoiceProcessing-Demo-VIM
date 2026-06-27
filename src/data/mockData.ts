@@ -711,6 +711,8 @@ royalties@wylieagency.com`,
       subtotal: 32400, tax: 0, totalAmount: 32400,
       bankAccountStatus: 'Verified', duplicateCheck: 'No Duplicate Found',
       contractRef: 'PRH-CTR-2023-4471',
+      glAccount: '4501-003', costCenter: 'CC-PRH-PUB-01', businessUnit: 'Penguin Random House',
+      taxCode: 'US-EXP-ROYALTY', codingConfidence: 92,
       expenseDescription: 'Author royalty — Eleanor Vance, "The Long Horizon", hardback net receipts H1 2026 at 15.0% (contract rate 12.5%).',
       fieldConfidences: { invoiceNumber: 100, supplierName: 100, invoiceDate: 98, totalAmount: 100 },
     },
@@ -920,6 +922,39 @@ AP Lead — Bertelsmann Finance Operations
 a.krueger@bertelsmann.de`,
   },
 ]
+
+// Royalty mismatch reply — Claire Newton confirms contract rate and corrected amount
+export const royaltyMismatchReplyEmail: ReplyEmail = {
+  id: 'reply-royalty-mismatch',
+  senderName: 'Claire Newton',
+  senderEmail: 'c.newton@penguinrandomhouse.com',
+  subject: 'Re: Royalty Rate Deviation — WYL-RY-2026-0312 — Eleanor Vance, "The Long Horizon"',
+  time: 'just now',
+  relatedInvoiceId: 'inv-13',
+  isUnread: true,
+  body: `Dear AP Team,
+
+Thank you for flagging this deviation on royalty invoice WYL-RY-2026-0312 from The Wylie Agency LLC.
+
+I have reviewed the invoice against contract PRH-CTR-2023-4471. The Wylie Agency has invoiced at 15.0%; however, the contract specifies a hardback net receipts royalty rate of 12.5%.
+
+Determination:
+  Contract Rate:     12.5% (correct)
+  Invoiced Rate:     15.0% (overstated by 2.5%)
+  Corrected Amount:  $27,000.00 USD
+  Overpayment Risk:  $5,400.00 USD
+  Basis:             Hardback net receipts H1 2026
+  Contract Ref:      PRH-CTR-2023-4471
+
+I have contacted The Wylie Agency, who have confirmed the 12.5% rate applies and accepted the corrected amount of $27,000.00 USD.
+
+Please proceed with payment at the contract rate. The deviation is resolved — no further action required from the AP team.
+
+Best regards,
+Claire Newton
+Royalties Manager — Penguin Random House LLC
+c.newton@penguinrandomhouse.com`,
+}
 
 // Corrected invoice submitted by supplier after rejection
 export const correctedTaxInvoice: Invoice = {

@@ -17,9 +17,11 @@ interface Props {
   onMetroApprove?: () => void
   metroInvoiceApprovedIds?: Set<string>
   glEmailsViewed?: boolean
+  onRoyaltySent?: () => void
+  royaltyMismatchAutoResolved?: boolean
 }
 
-export function InvoiceWorkspace({ invoice, onBack, onTaxMismatchSent, taxMismatchAutoResolved, onMissingGRSent, missingGRAutoResolved, onGLApprovalSent, glApprovalReceived, onProcessingComplete, metroGLApprovalSent, onMetroGLApprovalSend, metroApproved, onMetroApprove, metroInvoiceApprovedIds, glEmailsViewed }: Props) {
+export function InvoiceWorkspace({ invoice, onBack, onTaxMismatchSent, taxMismatchAutoResolved, onMissingGRSent, missingGRAutoResolved, onGLApprovalSent, glApprovalReceived, onProcessingComplete, metroGLApprovalSent, onMetroGLApprovalSend, metroApproved, onMetroApprove, metroInvoiceApprovedIds, glEmailsViewed, onRoyaltySent, royaltyMismatchAutoResolved }: Props) {
   return (
     <ProcessingView
       invoice={invoice}
@@ -37,6 +39,8 @@ export function InvoiceWorkspace({ invoice, onBack, onTaxMismatchSent, taxMismat
       onMetroApprove={onMetroApprove}
       metroInvoiceApprovedIds={metroInvoiceApprovedIds}
       glEmailsViewed={glEmailsViewed}
+      onRoyaltySent={onRoyaltySent}
+      royaltyMismatchAutoResolved={royaltyMismatchAutoResolved}
     />
   )
 }
