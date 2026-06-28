@@ -181,7 +181,7 @@ function AnalyticsPage() {
         Analytics
       </h1>
       <p style={{ fontSize: '15px', color: '#6b767b', marginBottom: '28px' }}>
-        Invoice processing performance and agent metrics · Bertelsmann Global Source-to-Pay
+        Invoice processing performance and agent metrics · Bertelsmann Invoice Processing Automation
       </p>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '28px' }}>

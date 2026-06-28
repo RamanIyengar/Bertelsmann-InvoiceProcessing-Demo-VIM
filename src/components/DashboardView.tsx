@@ -168,7 +168,7 @@ export function DashboardView({ onSelectInvoice }: Props) {
         Dashboard
       </h1>
       <p style={{ fontSize: '15px', color: '#6b767b', fontFamily: 'Lato, sans-serif', marginBottom: '28px' }}>
-        AI-powered invoice processing overview · Bertelsmann Global Source-to-Pay
+        AI-powered invoice processing overview · Bertelsmann Invoice Processing Automation
       </p>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '28px' }}>

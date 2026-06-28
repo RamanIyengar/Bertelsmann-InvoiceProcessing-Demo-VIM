@@ -56,7 +56,7 @@ export function AppHeader({ onBack, currentInvoice, onLogout }: Props) {
             letterSpacing: '0.02em',
           }}
         >
-          Bertelsmann Global Source-to-Pay
+          Bertelsmann Invoice Processing Automation
         </span>
 
         <span style={{ color: 'rgba(255,255,255,0.35)', fontSize: '16px', margin: '0 2px' }}>|</span>

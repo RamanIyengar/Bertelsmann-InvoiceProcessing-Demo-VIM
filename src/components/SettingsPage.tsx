@@ -321,7 +321,7 @@ export function SettingsPage() {
           }}>
             <div style={{ flex: 1 }}>
               <div style={{ fontFamily: 'Lato, sans-serif', fontSize: '11px', fontWeight: 700, color: 'rgba(255,255,255,0.55)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>
-                Agentic AP Automation · Bertelsmann Global Source-to-Pay
+                Agentic AP Automation · Bertelsmann Invoice Processing Automation
               </div>
               <h2 style={{ fontFamily: 'Cabin, sans-serif', fontSize: '24px', fontWeight: 700, color: 'white', margin: '0 0 8px' }}>
                 What does this mean for Bertelsmann?
