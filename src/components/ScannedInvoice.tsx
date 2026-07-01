@@ -41,8 +41,7 @@ function HV({ conf, children, visible }: { conf: number; children: React.ReactNo
 
 const BILL_TO_FREMANTLE = (
   <>
-    Fremantle / RTL Group<br />
-    Attn: Accounts Payable (Bertelsmann GBS)<br />
+    Fremantle<br />
     Picassoplatz 1<br />
     50679 Köln, Germany
   </>
@@ -168,8 +167,7 @@ function LehmannsInvoice({ vc, corrected }: { vc: number; corrected?: boolean })
         <div style={{ padding: '10px 12px', borderRight: '1px solid #ccc' }}>
           <div style={{ fontWeight: 700, color: '#333', marginBottom: '5px', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Bill-To</div>
           <div style={{ color: '#333', lineHeight: '1.65' }}>
-            Bertelsmann Education Group<br />
-            Attn: Accounts Payable (Bertelsmann GBS)<br />
+            Bertelsmann Education<br />
             Carl-Bertelsmann-Straße 270<br />
             33311 Gütersloh, Germany
           </div>
@@ -365,8 +363,7 @@ function NonPOInvoice({ vc }: { vc: number }) {
         <div style={{ padding: '12px 14px', borderRight: '1px solid #dde' }}>
           <div style={{ fontSize: '9px', fontWeight: 700, color: '#1d3557', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '6px' }}>Billed To</div>
           <div style={{ fontSize: '11px', color: '#333', lineHeight: '1.7', fontWeight: 500 }}>
-            Bertelsmann Group — Arvato Connect<br />
-            Attn: Accounts Payable (Bertelsmann GBS)<br />
+            Arvato Connect<br />
             Carl-Bertelsmann-Straße 270, 33311 Gütersloh
           </div>
         </div>
@@ -539,8 +536,7 @@ function RoyaltyInvoice({ vc }: { vc: number }) {
         <div>
           <div style={{ fontSize: '10px', fontWeight: 700, color: '#888', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '6px' }}>Bill To</div>
           <div style={{ fontSize: '11px', color: '#333', lineHeight: '1.7' }}>
-            Penguin Random House LLC<br />
-            Attn: Royalty Accounting<br />
+            Penguin Random House<br />
             1745 Broadway, New York, NY 10019
           </div>
         </div>
@@ -624,7 +620,6 @@ function PixomondoInvoice({ vc }: { vc: number }) {
           <div style={{ fontSize: '9px', fontWeight: 700, color: '#0d1f3c', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '6px' }}>Billed To</div>
           <div style={{ fontSize: '11px', color: '#333', lineHeight: '1.7' }}>
             Fremantle Ltd (UK)<br />
-            Attn: Accounts Payable<br />
             1 Stephen Street, London W1T 1AL, UK
           </div>
         </div>
@@ -719,8 +714,7 @@ function RRDInvoice({ vc }: { vc: number }) {
         <div style={{ padding: '12px 14px', borderRight: '1px solid #d0d5e0' }}>
           <div style={{ fontSize: '9px', fontWeight: 700, color: '#2c2c2c', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '6px' }}>Billed To</div>
           <div style={{ fontSize: '11px', color: '#333', lineHeight: '1.7' }}>
-            DK Publishing / Penguin Random House LLC<br />
-            Attn: Accounts Payable<br />
+            DK Publishing<br />
             1450 Broadway, New York, NY 10018, USA
           </div>
         </div>
@@ -830,8 +824,7 @@ function IngramInvoice({ vc }: { vc: number }) {
         <div style={{ padding: '12px 14px', borderRight: '1px solid #d0d5e0' }}>
           <div style={{ fontSize: '9px', fontWeight: 700, color: '#1b4f8a', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '6px' }}>Billed To</div>
           <div style={{ fontSize: '11px', color: '#333', lineHeight: '1.7' }}>
-            Penguin Random House LLC<br />
-            Attn: Accounts Payable<br />
+            Penguin Random House<br />
             1745 Broadway, New York, NY 10019, USA
           </div>
         </div>
@@ -964,7 +957,7 @@ function ScannedCopyInvoice({ vc, invoice }: { vc: number; invoice: Invoice }) {
               </div>
               <div style={{ padding: '8px 12px' }}>
                 <div style={{ fontSize: '8px', color: '#777', fontWeight: 700, marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Bill-to</div>
-                <div style={{ fontSize: '9px', color: '#555', lineHeight: '1.6', opacity: 0.85 }}>BMG Rights Management<br />Bertelsmann GBS</div>
+                <div style={{ fontSize: '9px', color: '#555', lineHeight: '1.6', opacity: 0.85 }}>BMG Rights Management</div>
               </div>
             </div>
 
@@ -1042,7 +1035,7 @@ function ScannedCopyInvoice({ vc, invoice }: { vc: number; invoice: Invoice }) {
         </div>
         <div style={{ padding: '8px 12px' }}>
           <div style={{ fontSize: '9px', color: '#666', fontWeight: 700, marginBottom: '4px' }}>Bill-to</div>
-          <div style={{ fontSize: '10px', color: '#444', lineHeight: '1.6' }}>Arvato Systems<br />Bertelsmann GBS</div>
+          <div style={{ fontSize: '10px', color: '#444', lineHeight: '1.6' }}>Arvato Systems</div>
         </div>
       </div>
 
@@ -1133,8 +1126,7 @@ function MaerskInvoice({ vc }: { vc: number }) {
         <div style={{ padding: '10px 12px', borderRight: '1px solid #ccc' }}>
           <div style={{ fontWeight: 700, color: '#003B71', marginBottom: '5px', fontSize: '10px', textTransform: 'uppercase' }}>Bill To</div>
           <div style={{ color: '#333', lineHeight: '1.65' }}>
-            Penguin Random House LLC<br />
-            Attn: Accounts Payable (Finance)<br />
+            Penguin Random House<br />
             1745 Broadway, New York, NY 10019<br />
             USA
           </div>
@@ -1237,8 +1229,7 @@ function JungVonMattInvoice({ vc }: { vc: number }) {
         <div style={{ padding: '12px 14px', borderRight: '1px solid #ddd' }}>
           <div style={{ fontSize: '9px', fontWeight: 700, color: '#111', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '6px' }}>Billed To</div>
           <div style={{ color: '#333', lineHeight: '1.7' }}>
-            Bertelsmann Marketing Services GmbH<br />
-            Attn: Territory Marketing — AP (Bertelsmann GBS)<br />
+            Bertelsmann Marketing Services<br />
             Carl-Bertelsmann-Straße 270, 33311 Gütersloh
           </div>
         </div>
