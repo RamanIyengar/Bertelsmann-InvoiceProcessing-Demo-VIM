@@ -20,37 +20,37 @@ function UseCasesModal({ onClose }: { onClose: () => void }) {
       onClick={onClose}
       style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.72)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
     >
-      <div onClick={e => e.stopPropagation()} style={{ background: '#fff', borderRadius: '10px', overflow: 'hidden', width: '820px', maxWidth: '95vw', maxHeight: '90vh', display: 'flex', flexDirection: 'column', boxShadow: '0 24px 80px rgba(0,0,0,0.45)' }}>
+      <div onClick={e => e.stopPropagation()} style={{ background: '#fff', borderRadius: '10px', overflow: 'hidden', width: '860px', maxWidth: '95vw', maxHeight: '94vh', display: 'flex', flexDirection: 'column', boxShadow: '0 24px 80px rgba(0,0,0,0.45)' }}>
         {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 24px 14px', borderBottom: '2px solid #1a3a6b', flexShrink: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 20px 10px', borderBottom: '2px solid #1a3a6b', flexShrink: 0 }}>
           <div>
-            <div style={{ fontFamily: 'Cabin, sans-serif', fontSize: '17px', fontWeight: 700, color: '#1d2f36' }}>Bertelsmann Invoice Processing — Use Cases</div>
-            <div style={{ fontFamily: 'Lato, sans-serif', fontSize: '12px', color: '#89919a', marginTop: '3px' }}>AI-Powered AP Automation · Demo Scope · 11 Use Cases</div>
+            <div style={{ fontFamily: 'Cabin, sans-serif', fontSize: '15px', fontWeight: 700, color: '#1d2f36' }}>Bertelsmann Invoice Processing — Use Cases</div>
+            <div style={{ fontFamily: 'Lato, sans-serif', fontSize: '11px', color: '#89919a', marginTop: '2px' }}>AI-Powered AP Automation · Demo Scope · 11 Use Cases</div>
           </div>
-          <button onClick={onClose} style={{ width: '28px', height: '28px', borderRadius: '50%', border: '1px solid #d0d4d7', background: '#f6f7f7', fontSize: '16px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#6b767b', fontWeight: 700, lineHeight: 1 }}>×</button>
+          <button onClick={onClose} style={{ width: '26px', height: '26px', borderRadius: '50%', border: '1px solid #d0d4d7', background: '#f6f7f7', fontSize: '15px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#6b767b', fontWeight: 700, lineHeight: 1 }}>×</button>
         </div>
         {/* List */}
-        <div style={{ overflowY: 'auto', flex: 1, padding: '8px 0' }}>
+        <div style={{ overflowY: 'auto', flex: 1, padding: '4px 0' }}>
           {USE_CASES.map((uc) => (
             <div
               key={uc.no}
-              style={{ display: 'flex', alignItems: 'center', padding: '13px 24px', borderBottom: '1px dashed #e0e3e6' }}
+              style={{ display: 'flex', alignItems: 'center', padding: '9px 20px', borderBottom: '1px dashed #e0e3e6' }}
             >
               {/* Number */}
-              <div style={{ width: '28px', flexShrink: 0, fontFamily: 'Cabin, sans-serif', fontSize: '14px', fontWeight: 700, color: '#1a3a6b' }}>{uc.no}</div>
+              <div style={{ width: '24px', flexShrink: 0, fontFamily: 'Cabin, sans-serif', fontSize: '13px', fontWeight: 700, color: '#1a3a6b' }}>{uc.no}</div>
               {/* Label */}
-              <div style={{ flex: 1, fontFamily: 'Lato, sans-serif', fontSize: '14px', color: '#1d2f36', fontWeight: 500, paddingRight: '16px' }}>{uc.label}</div>
+              <div style={{ flex: 1, fontFamily: 'Lato, sans-serif', fontSize: '13px', color: '#1d2f36', fontWeight: 500, paddingRight: '16px' }}>{uc.label}</div>
               {/* Ticket */}
-              <div style={{ flexShrink: 0, fontFamily: 'Lato, sans-serif', fontSize: '12px', color: '#89919a', marginRight: '24px', whiteSpace: 'nowrap' }}>{uc.ticket}</div>
+              <div style={{ flexShrink: 0, fontFamily: 'Lato, sans-serif', fontSize: '11px', color: '#89919a', marginRight: '20px', whiteSpace: 'nowrap' }}>{uc.ticket}</div>
               {/* Amount */}
-              <div style={{ flexShrink: 0, fontFamily: 'Cabin, sans-serif', fontSize: '14px', fontWeight: 700, color: '#1a3a6b', minWidth: '120px', textAlign: 'right', whiteSpace: 'nowrap' }}>{uc.amount}</div>
+              <div style={{ flexShrink: 0, fontFamily: 'Cabin, sans-serif', fontSize: '13px', fontWeight: 700, color: '#1a3a6b', minWidth: '110px', textAlign: 'right', whiteSpace: 'nowrap' }}>{uc.amount}</div>
             </div>
           ))}
         </div>
         {/* Footer */}
-        <div style={{ padding: '12px 24px', borderTop: '1px solid #e4e6e7', background: '#f6f7f7', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0 }}>
+        <div style={{ padding: '9px 20px', borderTop: '1px solid #e4e6e7', background: '#f6f7f7', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0 }}>
           <span style={{ fontFamily: 'Lato, sans-serif', fontSize: '11px', color: '#aab0b5' }}>Bertelsmann Invoice Processing Automation · Accenture</span>
-          <button onClick={onClose} style={{ padding: '7px 20px', borderRadius: '6px', border: '1px solid #c8cccf', background: '#fff', fontSize: '13px', cursor: 'pointer', fontFamily: 'Lato, sans-serif', color: '#4a555c', fontWeight: 600 }}>Close</button>
+          <button onClick={onClose} style={{ padding: '5px 16px', borderRadius: '6px', border: '1px solid #c8cccf', background: '#fff', fontSize: '12px', cursor: 'pointer', fontFamily: 'Lato, sans-serif', color: '#4a555c', fontWeight: 600 }}>Close</button>
         </div>
       </div>
     </div>
