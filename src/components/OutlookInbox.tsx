@@ -11,6 +11,7 @@ interface Props {
   invoices: Invoice[]
   replyEmails: ReplyEmail[]
   sentEmails?: SentEmail[]
+  initialFolder?: 'inbox' | 'sent' | 'vim'
   onMarkReplyRead: (id: string) => void
   onClose: () => void
 }
@@ -63,9 +64,9 @@ function EmptyStateIcon() {
 }
 
 
-export function OutlookInbox({ invoices, replyEmails, sentEmails = [], onMarkReplyRead, onClose }: Props) {
+export function OutlookInbox({ invoices, replyEmails, sentEmails = [], initialFolder, onMarkReplyRead, onClose }: Props) {
   const [selectedItem, setSelectedItem] = useState<SelectedItem>(null)
-  const [activeFolder, setActiveFolder] = useState<'inbox' | 'sent' | 'vim'>('inbox')
+  const [activeFolder, setActiveFolder] = useState<'inbox' | 'sent' | 'vim'>(initialFolder ?? 'inbox')
 
   // Split items by channel: VIM vs real email
   const isVimSent = (s: SentEmail) => s.toEmail === 'vim-no-reply@sap.bertelsmann.de'

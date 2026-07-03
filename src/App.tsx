@@ -234,7 +234,7 @@ export default function App() {
   const [toastVisible, setToastVisible] = useState(false)
   const [toastMessage, setToastMessage] = useState('')
   const [toastAction, setToastAction] = useState<{ label: string; onClick: () => void } | null>(null)
-  const [appView, setAppView] = useState<'home' | 'outlook-login' | 'outlook' | 'sap-login' | 'sap'>('home')
+  const [appView, setAppView] = useState<'home' | 'outlook-login' | 'outlook' | 'outlook-vim' | 'sap-login' | 'sap'>('home')
 
   if (appView === 'sap-login') {
     return <LoginScreen onLogin={() => setAppView('sap')} />
@@ -277,7 +277,7 @@ export default function App() {
     if (missingGRSent) return
     setMissingGRSent(true)
     setSentEmails(prev => prev.some(e => e.id === missingGRSentEmail.id) ? prev : [missingGRSentEmail, ...prev])
-    setToastMessage('SES confirmation request sent to Sophie Brandt · s.brandt@fremantle.com')
+    setToastMessage('VIM WI-2026-8823 dispatched to SAP VIM — Fremantle Germany Worklist')
     setToastAction(null)
     setToastVisible(true)
     const hideFirst = setTimeout(() => setToastVisible(false), 4000)
@@ -291,8 +291,8 @@ export default function App() {
           if (prev.some(e => e.id === missingGRReplyEmail.id)) return prev
           return [missingGRReplyEmail, ...prev]
         })
-        setToastMessage('Sophie Brandt confirmed SES-2026-88412 booked — invoice cleared to proceed')
-        setToastAction({ label: 'View in Outlook', onClick: () => setAppView('outlook') })
+        setToastMessage('VIM WI-2026-8823 completed — Sophie Brandt confirmed SES-2026-88412 booked')
+        setToastAction({ label: 'View in SAP VIM', onClick: () => setAppView('outlook-vim') })
         setToastVisible(true)
         setTimeout(() => { setToastVisible(false); setToastAction(null) }, 6000)
       }, 80)
@@ -303,7 +303,7 @@ export default function App() {
     if (royaltySent) return
     setRoyaltySent(true)
     setSentEmails(prev => prev.some(e => e.id === royaltyDeviationSentEmail.id) ? prev : [royaltyDeviationSentEmail, ...prev])
-    setToastMessage('Royalty deviation routed to Claire Newton · c.newton@penguinrandomhouse.com')
+    setToastMessage('VIM WI-2026-3312 dispatched to SAP VIM — PRH Royalties Worklist')
     setToastAction(null)
     setToastVisible(true)
     const hideFirst = setTimeout(() => setToastVisible(false), 4000)
@@ -316,8 +316,8 @@ export default function App() {
           if (prev.some(e => e.id === royaltyMismatchReplyEmail.id)) return prev
           return [royaltyMismatchReplyEmail, ...prev]
         })
-        setToastMessage('Claire Newton confirmed contract rate 12.5% — deviation resolved')
-        setToastAction({ label: 'View in Outlook', onClick: () => setAppView('outlook') })
+        setToastMessage('VIM WI-2026-3312 completed — Claire Newton confirmed contract rate 12.5%')
+        setToastAction({ label: 'View in SAP VIM', onClick: () => setAppView('outlook-vim') })
         setToastVisible(true)
         setTimeout(() => { setToastVisible(false); setToastAction(null) }, 6000)
       }, 80)
@@ -328,7 +328,7 @@ export default function App() {
     if (icSent) return
     setIcSent(true)
     setSentEmails(prev => prev.some(e => e.id === icMismatchSentEmail.id) ? prev : [icMismatchSentEmail, ...prev])
-    setToastMessage('ICE reconciliation notification sent to Pieter Janssen · p.janssen@bertelsmann.de')
+    setToastMessage('VIM WI-2026-6647 dispatched to SAP VIM — Bertelsmann Finance Worklist')
     setToastAction(null)
     setToastVisible(true)
     const hideFirst = setTimeout(() => setToastVisible(false), 4000)
@@ -341,8 +341,8 @@ export default function App() {
           if (prev.some(e => e.id === icMismatchReplyEmail.id)) return prev
           return [icMismatchReplyEmail, ...prev]
         })
-        setToastMessage('Pieter Janssen confirmed ICE-REC-2026-0619 cleared — entities balanced')
-        setToastAction({ label: 'View in Outlook', onClick: () => setAppView('outlook') })
+        setToastMessage('VIM WI-2026-6647 completed — Pieter Janssen confirmed ICE-REC-2026-0619 cleared')
+        setToastAction({ label: 'View in SAP VIM', onClick: () => setAppView('outlook-vim') })
         setToastVisible(true)
         setTimeout(() => { setToastVisible(false); setToastAction(null) }, 6000)
       }, 80)
@@ -378,7 +378,7 @@ export default function App() {
 
     if (isPRT) {
       setSentEmails(prev => prev.some(e => e.id === prtGLSentEmail.id) ? prev : [prtGLSentEmail, ...prev])
-      setToastMessage('Production WBS coding approval sent to Claudia Bauer & Marc Olivier-Leblanc')
+      setToastMessage('VIM WI-2026-5390 dispatched to SAP VIM — Fremantle Germany Worklist')
       setToastAction(null)
       setToastVisible(true)
       const hideFirst = setTimeout(() => setToastVisible(false), 4000)
@@ -392,8 +392,8 @@ export default function App() {
         })
         if (selectedInvoice?.id) setGLApprovedInvoiceIds(prev => new Set([...prev, selectedInvoice.id]))
         setTimeout(() => {
-          setToastMessage('Approval received from Claudia Bauer (Production Finance) — PXM-2026-FRM-1142')
-          setToastAction({ label: 'Go to Outlook', onClick: () => setAppView('outlook') })
+          setToastMessage('VIM WI-2026-5390 part-completed — Claudia Bauer approved WBS coding')
+          setToastAction({ label: 'View in SAP VIM', onClick: () => setAppView('outlook-vim') })
           setToastVisible(true)
           setTimeout(() => { setToastVisible(false); setToastAction(null) }, 5000)
         }, 80)
@@ -406,8 +406,8 @@ export default function App() {
         })
         setPrtGLBothApproved(true)
         setTimeout(() => {
-          setToastMessage('Approval received from Marc Olivier-Leblanc (VP Finance Content) — PXM-2026-FRM-1142')
-          setToastAction({ label: 'Go to Outlook', onClick: () => setAppView('outlook') })
+          setToastMessage('VIM WI-2026-5390 completed — Marc Olivier-Leblanc approved DOA — PXM-2026-FRM-1142 cleared')
+          setToastAction({ label: 'View in SAP VIM', onClick: () => setAppView('outlook-vim') })
           setToastVisible(true)
           setTimeout(() => { setToastVisible(false); setToastAction(null) }, 5000)
         }, 80)
@@ -423,7 +423,7 @@ export default function App() {
     const replyEmailObj = isRRDDispute ? rrdDisputeReplyEmail : glApprovalReplyEmail
     const replyEmailId = isRRDDispute ? 'reply-rrd-dispute' : 'reply-gl-approval'
     setSentEmails(prev => prev.some(e => e.id === sentEmailObj.id) ? prev : [sentEmailObj, ...prev])
-    setToastMessage(isRRDDispute ? `Surcharge pre-approval query sent to PRH Procurement for ${currentInvoiceNum}` : `GL code approval email sent for ${currentInvoiceNum}`)
+    setToastMessage(isRRDDispute ? `VIM WI-2026-2281 dispatched to SAP VIM — PRH Procurement Worklist` : `VIM WI-2026-7714 dispatched to SAP VIM — BMS Marketing Worklist`)
     setToastAction(null)
     setToastVisible(true)
     const hideFirst = setTimeout(() => setToastVisible(false), 4000)
@@ -436,8 +436,8 @@ export default function App() {
       })
       if (currentInvoiceId) setGLApprovedInvoiceIds(prev => new Set([...prev, currentInvoiceId]))
       setTimeout(() => {
-        setToastMessage(isRRDDispute ? `PRH Procurement confirmed surcharge is authorised for ${currentInvoiceNum}` : `GL code approval received for ${currentInvoiceNum}`)
-        setToastAction({ label: 'Go to Outlook', onClick: () => setAppView('outlook') })
+        setToastMessage(isRRDDispute ? `VIM WI-2026-2281 completed — Julia Hartmann confirmed surcharge approved` : `VIM WI-2026-7714 completed — Caroline Hoffmann confirmed GL code`)
+        setToastAction({ label: 'View in SAP VIM', onClick: () => setAppView('outlook-vim') })
         setToastVisible(true)
         setTimeout(() => { setToastVisible(false); setToastAction(null) }, 6000)
       }, 80)
@@ -449,7 +449,7 @@ export default function App() {
     setMetroGLApprovalSent(true)
     setSentEmails(prev => prev.some(e => e.id === metroGLSentEmail.id) ? prev : [metroGLSentEmail, ...prev])
     // First toast — approval request sent
-    setToastMessage('GL approval request sent to m.weber@bertelsmann.de · CC: a.krueger@bertelsmann.de')
+    setToastMessage('VIM WI-2026-4561 dispatched to SAP VIM — Arvato Connect Worklist')
     setToastAction(null)
     setToastVisible(true)
     const hideFirst = setTimeout(() => setToastVisible(false), 4000)
@@ -462,8 +462,8 @@ export default function App() {
         return [...metroGLReplyEmails, ...prev]
       })
       setTimeout(() => {
-        setToastMessage('GL code approval received for DLT-2026-7741 — Markus Weber & Anja Krüger responded')
-        setToastAction({ label: 'Go to Outlook', onClick: () => setAppView('outlook') })
+        setToastMessage('VIM WI-2026-4561 completed — Markus Weber & Anja Krüger confirmed GL 6720-001')
+        setToastAction({ label: 'View in SAP VIM', onClick: () => setAppView('outlook-vim') })
         setToastVisible(true)
         setTimeout(() => { setToastVisible(false); setToastAction(null) }, 6000)
       }, 80)
@@ -485,12 +485,13 @@ export default function App() {
     )
   }
 
-  if (appView === 'outlook') {
+  if (appView === 'outlook' || appView === 'outlook-vim') {
     return (
       <OutlookInbox
         invoices={mockInvoices}
         replyEmails={replyEmails}
         sentEmails={sentEmails}
+        initialFolder={appView === 'outlook-vim' ? 'vim' : 'inbox'}
         onMarkReplyRead={handleMarkReplyRead}
         onClose={() => {
           if (prtGLBothApproved && selectedInvoice?.glMissingVariant === 'prt-coding') {
