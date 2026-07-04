@@ -418,6 +418,138 @@ function ProcessFlowModal({ onClose }: { onClose: () => void }) {
   )
 }
 
+const USE_CASE_META: Record<number, { type: string; typeColor: string; typeBg: string; bu: string }> = {
+  1:  { type: 'PO · Auto-Post',      typeColor: '#fff',    typeBg: '#1a3a6b', bu: 'Fremantle' },
+  2:  { type: 'PO · Exception',      typeColor: '#fff',    typeBg: '#b45309', bu: 'Fremantle' },
+  3:  { type: 'Duplicate Detection', typeColor: '#fff',    typeBg: '#991b1b', bu: 'PRH' },
+  4:  { type: 'Non-PO · GL Coding',  typeColor: '#fff',    typeBg: '#5b21b6', bu: 'Arvato' },
+  5:  { type: 'VAT Compliance',      typeColor: '#fff',    typeBg: '#c2410c', bu: 'Bertelsmann Education' },
+  6:  { type: 'Non-PO · GL Coding',  typeColor: '#fff',    typeBg: '#5b21b6', bu: 'RTL' },
+  7:  { type: 'WBS · Project Acctg', typeColor: '#fff',    typeBg: '#1e40af', bu: 'Arvato' },
+  8:  { type: 'Royalty · Review',    typeColor: '#fff',    typeBg: '#6d28d9', bu: 'BMG' },
+  9:  { type: 'Intercompany',        typeColor: '#fff',    typeBg: '#0e7490', bu: 'Fremantle / RTL' },
+  10: { type: 'Royalty · Contract',  typeColor: '#fff',    typeBg: '#6d28d9', bu: 'PRH / BMG' },
+  11: { type: 'GenAI · Contract',    typeColor: '#fff',    typeBg: '#065f46', bu: 'Fremantle' },
+}
+
+export function BriefingScreen({ onStart }: { onStart: () => void }) {
+  const [selectedCard, setSelectedCard] = useState<number | null>(null)
+  const [hoveredRow, setHoveredRow] = useState<number | null>(null)
+
+  return (
+    <>
+      {selectedCard !== null && (
+        <UseCaseCardModal
+          no={selectedCard}
+          onClose={() => setSelectedCard(null)}
+          onPrev={() => setSelectedCard(n => Math.max(1, (n ?? 1) - 1))}
+          onNext={() => setSelectedCard(n => Math.min(USE_CASES.length, (n ?? 1) + 1))}
+        />
+      )}
+      <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', background: '#f0f2f5', overflow: 'hidden', fontFamily: 'Lato, sans-serif' }}>
+
+        {/* Header */}
+        <div style={{ background: '#0d1b2a', height: '52px', display: 'flex', alignItems: 'center', padding: '0 32px', flexShrink: 0, boxShadow: '0 1px 6px rgba(0,0,0,0.4)' }}>
+          <img src="/bertelsmann-logo.svg" alt="Bertelsmann" style={{ height: '20px', flexShrink: 0 }} />
+          <div style={{ width: '1px', height: '22px', background: 'rgba(255,255,255,0.15)', margin: '0 18px' }} />
+          <span style={{ color: 'rgba(255,255,255,0.75)', fontSize: '13px', fontWeight: 600, letterSpacing: '0.01em' }}>Invoice Processing Automation</span>
+          <div style={{ flex: 1 }} />
+          <span style={{ color: 'rgba(255,255,255,0.45)', fontSize: '12px', marginRight: '14px' }}>Demo · Accenture × Bertelsmann</span>
+          <div style={{ width: '30px', height: '30px', borderRadius: '50%', background: '#0070B1', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Cabin, sans-serif', fontSize: '11px', fontWeight: 700, flexShrink: 0 }}>RI</div>
+        </div>
+
+        {/* Body */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: '36px 48px 48px' }}>
+
+          {/* Breadcrumb */}
+          <div style={{ fontSize: '12px', color: '#89919a', marginBottom: '6px' }}>
+            Demo Briefing&nbsp;/&nbsp;<span style={{ color: '#32363a', fontWeight: 600 }}>Use Cases</span>
+          </div>
+
+          {/* Title row */}
+          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '28px', flexWrap: 'wrap', gap: '16px' }}>
+            <div>
+              <h1 style={{ fontFamily: 'Cabin, sans-serif', fontSize: '26px', fontWeight: 700, color: '#1d2f36', margin: '0 0 5px' }}>
+                Bertelsmann Invoice Processing
+                <span style={{ display: 'inline-flex', alignItems: 'center', marginLeft: '12px', background: '#e8f0fa', color: '#1a3a6b', fontSize: '13px', fontWeight: 700, padding: '2px 10px', borderRadius: '20px', verticalAlign: 'middle', fontFamily: 'Lato, sans-serif' }}>11 Use Cases</span>
+              </h1>
+              <p style={{ margin: 0, fontSize: '13px', color: '#89919a' }}>AI-Powered AP Automation · Demo Scope · Click any row to open the context card</p>
+            </div>
+            <button
+              onClick={onStart}
+              style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 22px', borderRadius: '6px', border: 'none', background: '#1a3a6b', color: '#fff', fontSize: '14px', fontWeight: 700, fontFamily: 'Cabin, sans-serif', cursor: 'pointer', boxShadow: '0 2px 8px rgba(26,58,107,0.35)', whiteSpace: 'nowrap', transition: 'background 0.15s' }}
+              onMouseEnter={e => (e.currentTarget.style.background = '#14305a')}
+              onMouseLeave={e => (e.currentTarget.style.background = '#1a3a6b')}
+            >
+              Start Demo
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 7h8M8 4l3 3-3 3" /></svg>
+            </button>
+          </div>
+
+          {/* Table */}
+          <div style={{ background: '#fff', borderRadius: '8px', boxShadow: '0 1px 4px rgba(0,0,0,0.08)', overflow: 'hidden' }}>
+            {/* Table header */}
+            <div style={{ display: 'grid', gridTemplateColumns: '48px 1fr 160px 200px 130px', alignItems: 'center', padding: '0 20px', height: '38px', background: '#f6f7f8', borderBottom: '2px solid #e4e6e7' }}>
+              <div style={{ fontSize: '11px', fontWeight: 700, color: '#89919a', textTransform: 'uppercase', letterSpacing: '0.07em' }}>#</div>
+              <div style={{ fontSize: '11px', fontWeight: 700, color: '#89919a', textTransform: 'uppercase', letterSpacing: '0.07em' }}>Use Case</div>
+              <div style={{ fontSize: '11px', fontWeight: 700, color: '#89919a', textTransform: 'uppercase', letterSpacing: '0.07em' }}>Business Unit</div>
+              <div style={{ fontSize: '11px', fontWeight: 700, color: '#89919a', textTransform: 'uppercase', letterSpacing: '0.07em' }}>Ticket</div>
+              <div style={{ fontSize: '11px', fontWeight: 700, color: '#89919a', textTransform: 'uppercase', letterSpacing: '0.07em', textAlign: 'right' }}>Amount</div>
+            </div>
+
+            {/* Rows */}
+            {USE_CASES.map((uc) => {
+              const meta = USE_CASE_META[uc.no]
+              const hovered = hoveredRow === uc.no
+              return (
+                <div
+                  key={uc.no}
+                  onClick={() => setSelectedCard(uc.no)}
+                  onMouseEnter={() => setHoveredRow(uc.no)}
+                  onMouseLeave={() => setHoveredRow(null)}
+                  style={{ display: 'grid', gridTemplateColumns: '48px 1fr 160px 200px 130px', alignItems: 'center', padding: '0 20px', minHeight: '56px', borderBottom: '1px solid #f0f2f4', cursor: 'pointer', background: hovered ? '#f4f7fc' : '#fff', transition: 'background 0.1s' }}
+                >
+                  {/* # */}
+                  <div style={{ fontFamily: 'Cabin, sans-serif', fontSize: '15px', fontWeight: 700, color: hovered ? '#1a3a6b' : '#c8cccf' }}>{uc.no}</div>
+
+                  {/* Use case label + type tag */}
+                  <div style={{ paddingRight: '16px', display: 'flex', flexDirection: 'column', gap: '4px', justifyContent: 'center', padding: '10px 16px 10px 0' }}>
+                    <span style={{ fontSize: '13px', fontWeight: 600, color: '#1d2f36', lineHeight: 1.35 }}>{uc.label}</span>
+                    <span style={{ display: 'inline-flex', alignSelf: 'flex-start', fontSize: '10px', fontWeight: 700, padding: '2px 8px', borderRadius: '4px', background: meta.typeBg, color: meta.typeColor, letterSpacing: '0.04em' }}>{meta.type}</span>
+                  </div>
+
+                  {/* Business unit */}
+                  <div style={{ fontSize: '12px', color: '#6b767b', fontWeight: 500 }}>{meta.bu}</div>
+
+                  {/* Ticket */}
+                  <div style={{ fontSize: '11.5px', color: '#89919a', fontFamily: 'monospace' }}>{uc.ticket}</div>
+
+                  {/* Amount */}
+                  <div style={{ fontFamily: 'Cabin, sans-serif', fontSize: '13px', fontWeight: 700, color: '#1a3a6b', textAlign: 'right' }}>{uc.amount}</div>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* Footer note */}
+          <div style={{ marginTop: '24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
+            <span style={{ fontSize: '11px', color: '#aab0b5' }}>Bertelsmann Invoice Processing Automation · Accenture · Demo environment — all data is illustrative</span>
+            <button
+              onClick={onStart}
+              style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '8px 18px', borderRadius: '6px', border: '1px solid #c8cccf', background: '#fff', color: '#4a555c', fontSize: '12px', fontWeight: 600, cursor: 'pointer', fontFamily: 'Lato, sans-serif', transition: 'all 0.15s' }}
+              onMouseEnter={e => { e.currentTarget.style.cssText += ';background:#f0f2f5;border-color:#1a3a6b;color:#1a3a6b' }}
+              onMouseLeave={e => { e.currentTarget.style.cssText += ';background:#fff;border-color:#c8cccf;color:#4a555c' }}
+            >
+              Enter Demo
+              <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 7h8M8 4l3 3-3 3" /></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+
 interface Props {
   onSelectOutlook: () => void
   onSelectSAP: () => void

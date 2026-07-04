@@ -8,7 +8,7 @@ import { DashboardView } from './components/DashboardView'
 import { InvoiceWorkspace } from './components/InvoiceWorkspace'
 import { AuditTrailPage } from './components/AuditTrailPage'
 import { taxMismatchReplyEmails, glApprovalReplyEmail, metroGLReplyEmails, prtGLReplyEmails, missingGRReplyEmail, royaltyMismatchReplyEmail, royaltyDeviationSentEmail, taxMismatchSentEmail, missingGRSentEmail, glApprovalSentEmail, prtGLSentEmail, metroGLSentEmail, icMismatchSentEmail, icMismatchReplyEmail, rrdDisputeSentEmail, rrdDisputeReplyEmail, kobaltRescanSentEmail, kobaltRescanReplyEmail, mockInvoices } from './data/mockData'
-import { LandingScreen } from './components/LandingScreen'
+import { LandingScreen, BriefingScreen } from './components/LandingScreen'
 import { OutlookInbox } from './components/OutlookInbox'
 import { SAPVIMWorklist } from './components/SAPVIMWorklist'
 import { TicketsView } from './components/TicketsView'
@@ -235,7 +235,11 @@ export default function App() {
   const [toastVisible, setToastVisible] = useState(false)
   const [toastMessage, setToastMessage] = useState('')
   const [toastAction, setToastAction] = useState<{ label: string; onClick: () => void } | null>(null)
-  const [appView, setAppView] = useState<'home' | 'outlook-login' | 'outlook' | 'outlook-vim' | 'sap-login' | 'sap'>('home')
+  const [appView, setAppView] = useState<'briefing' | 'home' | 'outlook-login' | 'outlook' | 'outlook-vim' | 'sap-login' | 'sap'>('briefing')
+
+  if (appView === 'briefing') {
+    return <BriefingScreen onStart={() => setAppView('home')} />
+  }
 
   if (appView === 'sap-login') {
     return <LoginScreen onLogin={() => setAppView('sap')} />
